@@ -1,5 +1,30 @@
+"""
+This module provides a simple CLI
+"""
+
 def input_error(func):
+    """
+    Decorator that catches specific errors and returns corresponding messages.
+
+    Args:
+        func (callable): The function to be decorated.
+
+    Returns:
+        callable: Decorated function.
+    """
     def inner(*args, **kwargs):
+        """
+        Executes the decorated function and catches specific errors.
+
+        Returns a corresponding message for each caught error.
+
+        Args:
+            *args: Positional arguments passed to the decorated function.
+            **kwargs: Keyword arguments passed to the decorated function.
+
+        Returns:
+            str: Error message if error occurs, otherwise result of the decorated function.
+        """
         try:
             return func(*args, **kwargs)
         except ValueError:
@@ -11,7 +36,7 @@ def input_error(func):
 
     return inner
 
-@input_error  
+@input_error
 def parse_input(user_input):
     """
     Parse user input into command and arguments.
@@ -26,7 +51,7 @@ def parse_input(user_input):
     cmd = cmd.strip().lower()
     return cmd, *args
 
-@input_error  
+@input_error
 def change_contact(args, contacts):
     """
     Change contact's phone number.
@@ -45,7 +70,7 @@ def change_contact(args, contacts):
     else:
         return f"Contact {name} not found."
 
-@input_error  
+@input_error
 def show_all (contacts):
     """
     Display all contacts and their phone numbers.
@@ -61,7 +86,7 @@ def show_all (contacts):
         all_contacts.append(f'{name} {phone}')
     return "\n".join(all_contacts)
 
-@input_error  
+@input_error
 def show_phone(args, contacts):
     """
     Show phone number for a specific contact.
@@ -79,7 +104,7 @@ def show_phone(args, contacts):
     else:
         return f"Contact {name} not found."
 
-@input_error   
+@input_error
 def add_contact(args, contacts):
     """
     Add a new contact to the contacts dictionary.
